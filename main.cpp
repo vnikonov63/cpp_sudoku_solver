@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -26,6 +29,44 @@ vector<vector<int> > getUserInput() {
   return result;
 }
 
+// A list of Tests, that ensures, that the values we provide are correct
+vector<vector<int> > TransposeMatrix(vector<vector<int> > initialBoard) {
+  vector<vector<int> > result;
+  return result;
+}
+
+bool CheckLine(vector<int> line) {
+  map <int, int> tempO;
+  for (int i = 0; i < line.size(); ++i) {
+    if (line[i] != -1) {
+      try {
+        tempO.at(line[i]);
+      }
+      catch (std::out_of_range) {
+        tempO[line[i]] = 1;
+        continue;
+      }
+
+      cout << "There is a repetition" << " at " << i << " for " << line[i] << endl;
+      return false;
+    }
+  }
+  cout << "There is no repetitions" << endl;
+  return true;
+}
+
+bool CheckLineHorizontaly(vector<vector<int> > board, int rowNumber) {
+  return true;
+}
+
+bool CheckLineVertically(vector<vector<int> > board, int columnNumber) {
+  return true;
+}
+
+bool CheckThreeByThreeLine(vector<vector<int> > board, int rowNumber, int columnNumber) {
+  return true;
+}
+
 string PrintSudokuBoard(vector<vector<int> > board) {
   string result = "";
   for (int i = 0; i < board.size(); ++i) {
@@ -46,10 +87,24 @@ string PrintSudokuBoard(vector<vector<int> > board) {
 }
 
 int main() {
-  // Get the user input and display it
-  string result = PrintSudokuBoard(getUserInput());
+  /* vector<vector<int> > boardToSolve = getUserInput();
+  string result = PrintSudokuBoard(boardToSolve);
   cout << "\n" << "The board you entered is " << "\n" << endl;
   cout << result << endl;
-  cout << "\n" << endl;
+  cout << "\n" << endl; */
+  vector<int> debug;
+  srand(time(NULL));
+  debug.push_back(-1);
+  debug.push_back(-1);
+  debug.push_back(1);
+  debug.push_back(9);
+  debug.push_back(3);
+  debug.push_back(-1);
+  debug.push_back(1);
+  cout << "the vector" << endl;
+  for (int i : debug) {
+    cout << i << endl;
+  }
+  CheckLine(debug);
   return 0;
 }
