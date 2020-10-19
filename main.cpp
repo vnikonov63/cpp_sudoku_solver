@@ -30,10 +30,6 @@ vector<vector<int> > getUserInput() {
 }
 
 // A list of Tests, that ensures, that the values we provide are correct
-vector<vector<int> > TransposeMatrix(vector<vector<int> > initialBoard) {
-  vector<vector<int> > result;
-  return result;
-}
 
 bool CheckLine(vector<int> line) {
   map <int, int> tempO;
@@ -46,21 +42,34 @@ bool CheckLine(vector<int> line) {
         tempO[line[i]] = 1;
         continue;
       }
-
-      cout << "There is a repetition" << " at " << i << " for " << line[i] << endl;
       return false;
     }
   }
-  cout << "There is no repetitions" << endl;
   return true;
 }
 
 bool CheckLineHorizontaly(vector<vector<int> > board, int rowNumber) {
-  return true;
+  vector<int> line = board[rowNumber];
+  return CheckLine(line);
+}
+
+vector<vector<int> > TransposeMatrix(vector<vector<int> > board) {
+  vector<vector<int> > result;
+  for (int i = 0; i < board.size(); ++i) {
+    vector<int> temp;
+    for (int j = 0; j < board[i].size(); ++j) {
+      temp.push_back(board[j][i]);
+    }
+    result.push_back(temp);
+  }
+  return result;
 }
 
 bool CheckLineVertically(vector<vector<int> > board, int columnNumber) {
-  return true;
+  vector<vector<int> > transposedMatrix;
+  transposedMatrix = TransposeMatrix(board);
+  vector<int> line = board[columnNumber];
+  return CheckLine(line);
 }
 
 bool CheckThreeByThreeLine(vector<vector<int> > board, int rowNumber, int columnNumber) {
@@ -86,25 +95,23 @@ string PrintSudokuBoard(vector<vector<int> > board) {
   return result;
 }
 
+// this is the way to Test my tests
+void TestEachCell(vector<vector<int> > boardToSolve) {
+  for (int i = 0; i < boardToSolve.size(); ++i) {
+    for (int j = 0; j < boardToSolve.size(); ++j) {
+      bool one = CheckLineHorizontaly(boardToSolve, i);
+      bool two = CheckLineVertically(boardToSolve, j);
+      cout << "The cell at row " << i << " an column " << j << "is " << boolalpha << one << noboolalpha << " horizontaly and is " << boolalpha << two << noboolalpha << " vertically." << endl;
+    }
+  }
+}
+
 int main() {
-  /* vector<vector<int> > boardToSolve = getUserInput();
+  vector<vector<int> > boardToSolve = getUserInput();
   string result = PrintSudokuBoard(boardToSolve);
   cout << "\n" << "The board you entered is " << "\n" << endl;
   cout << result << endl;
-  cout << "\n" << endl; */
-  vector<int> debug;
-  srand(time(NULL));
-  debug.push_back(-1);
-  debug.push_back(-1);
-  debug.push_back(1);
-  debug.push_back(9);
-  debug.push_back(3);
-  debug.push_back(-1);
-  debug.push_back(1);
-  cout << "the vector" << endl;
-  for (int i : debug) {
-    cout << i << endl;
-  }
-  CheckLine(debug);
+  cout << "\n" << endl;
+
   return 0;
 }
